@@ -9,7 +9,11 @@ describe('SearchInput', () => {
     const { queryByLabelText } = render(
       <SearchInput onChange={changeHanlder} />
     )
-    userEvent.type(queryByLabelText('Search Repositories'), 'Repo-name')
-    expect(changeHanlder.mock.calls.length).toBe(9)
+
+    const testValue = 'Repo-name'
+    userEvent.type(queryByLabelText('Search Repositories'), testValue)
+    expect(changeHanlder.mock.calls.length).toBe(testValue.length)
+    const [lastCallArgument] = changeHanlder.mock.calls.slice(-1)[0]
+    expect(lastCallArgument).toBe(testValue)
   })
 })
