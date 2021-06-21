@@ -11,7 +11,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel'
 
 import TablePagination from '@material-ui/core/TablePagination'
 
-import { Repository, SortField } from '../../app/repositories/types'
+import { Repository, SortField } from '../../types/repositories'
 import EmptyState from './EmptyState'
 import LoadingState from './LoadingState'
 

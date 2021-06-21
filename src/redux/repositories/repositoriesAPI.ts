@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest'
 
-import { SearchRepositoriesRequest, SearchRepositoriesResponse } from './types'
+import { SearchRepositoriesRequest, SearchRepositoriesResponse } from '../../types/repositories'
 
 const octokit = new Octokit()
 
