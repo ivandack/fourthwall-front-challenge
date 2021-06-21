@@ -1,7 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import repositoriesSlice from '../app/repositories/repositoriesSlice'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    repositories: repositoriesSlice,
+  },
+  devTools: true,
 })
 
 export type AppDispatch = typeof store.dispatch
