@@ -1,3 +1,7 @@
+import CssBaseline from '@material-ui/core/CssBaseline'
+
+import 'tachyons/css/tachyons.min.css'
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -7,3 +11,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <CssBaseline>
+      <Story />
+    </CssBaseline>
+  ),
+]
