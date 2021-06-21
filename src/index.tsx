@@ -1,16 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import App from './App'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 
+import 'tachyons/css/tachyons.min.css'
+import './index.css'
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <CssBaseline>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </CssBaseline>
   </React.StrictMode>,
   document.getElementById('root')
 )
