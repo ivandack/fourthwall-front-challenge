@@ -11,11 +11,13 @@ export type Repository = {
   }
 }
 
+export type SortField = 'stars' | 'forks' | 'help-wanted-issues' | 'updated'
+
 export type SearchRepositoriesRequest = {
   value: string
   page?: number
   perPage?: number
-  sort?: 'stars' | 'forks' | 'help-wanted-issues' | 'updated'
+  sort?: SortField
   order?: 'asc' | 'desc'
 }
 

@@ -1,37 +1,31 @@
+import { useState } from 'react'
 import { DateTime } from 'luxon'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableFooter from '@material-ui/core/TableFooter'
-import TableCell from '@material-ui/core/TableCell'
+import TableCell, { SortDirection } from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
 
 import TablePagination from '@material-ui/core/TablePagination'
 
-import { Repository } from '../../app/repositories/types'
+import { Repository, SortField } from '../../app/repositories/types'
 import EmptyState from './EmptyState'
 import LoadingState from './LoadingState'
+
+const SORT_OPTIONS: SortDirection[] = [false, 'asc', 'desc']
 
 export type RepositoriesTableProps = {
   repositories: Repository[] | null
   page?: number
+  perPage?: number
   total?: number
   loading?: boolean
   onPageChange: (page: number) => void
+  onSortChange: (field: SortField, direction: SortDirection) => void
 }
-
-const TableHeader = () => (
-  <TableHead>
-    <TableRow>
-      <TableCell>Name</TableCell>
-      <TableCell>Owner</TableCell>
-      <TableCell>Stars</TableCell>
-      <TableCell>Created At</TableCell>
-    </TableRow>
-  </TableHead>
-)
 
 const EmptyTableBody = () => (
   <TableBody>
@@ -45,7 +39,7 @@ const EmptyTableBody = () => (
 
 const LoadingTableBody = () => (
   <TableBody>
-    <TableRow>
+    <TableRow data-testid="loadingState">
       <TableCell height={530} colSpan={4} align="center">
         <LoadingState />
       </TableCell>
@@ -56,6 +50,7 @@ const LoadingTableBody = () => (
 const PopulatedTableBody = ({
   repositories,
   page = 1,
+  perPage = 10,
   total = -1,
   onPageChange,
 }: RepositoriesTableProps) => (
@@ -90,14 +85,14 @@ const PopulatedTableBody = ({
     </TableBody>
     {total > 0 && (
       <TableFooter>
-        <TableRow>
+        <TableRow data-testid="pagination">
           <TablePagination
             count={total || -1}
             onChangePage={(_, page) => {
               onPageChange(page + 1)
             }}
             page={page - 1}
-            rowsPerPage={15}
+            rowsPerPage={perPage}
             rowsPerPageOptions={[]}
             colSpan={4}
           />
@@ -107,19 +102,46 @@ const PopulatedTableBody = ({
   </>
 )
 
-const RepositoriesTable = (props: RepositoriesTableProps) => (
-  <TableContainer component={Paper}>
-    <Table>
-      <TableHeader />
-      {props.loading ? (
-        <LoadingTableBody />
-      ) : props.repositories?.length ? (
-        <PopulatedTableBody {...props} />
-      ) : (
-        <EmptyTableBody />
-      )}
-    </Table>
-  </TableContainer>
-)
+const RepositoriesTable = (props: RepositoriesTableProps) => {
+  const [starsSort, setStarsSort] = useState<SortDirection>(false)
+
+  const starsSortHandler = () => {
+    const index = SORT_OPTIONS.findIndex((o) => o === starsSort)
+    const newSort = SORT_OPTIONS[(index + 1) % SORT_OPTIONS.length]
+    setStarsSort(newSort)
+    props.onSortChange('stars', newSort)
+  }
+
+  return (
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Owner</TableCell>
+            <TableCell sortDirection={starsSort}>
+              <TableSortLabel
+                active={!!starsSort}
+                direction={starsSort || 'desc'}
+                onClick={starsSortHandler}
+              >
+                Stars
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>Created At</TableCell>
+          </TableRow>
+        </TableHead>
+
+        {props.loading ? (
+          <LoadingTableBody />
+        ) : props.repositories?.length ? (
+          <PopulatedTableBody {...props} />
+        ) : (
+          <EmptyTableBody />
+        )}
+      </Table>
+    </TableContainer>
+  )
+}
 
 export default RepositoriesTable

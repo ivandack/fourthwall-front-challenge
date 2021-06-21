@@ -1,4 +1,6 @@
+import { SortDirection } from '@material-ui/core'
 import { Story, Meta } from '@storybook/react'
+import { SortField } from '../../app/repositories/types'
 
 import RepositoriesTable, { RepositoriesTableProps } from './'
 
@@ -22,16 +24,34 @@ Normal.args = {
       stars: 15,
       createdAt: '2017-05-15T08:30:00Z',
     },
+    {
+      id: '2',
+      name: 'Repo 2',
+      url: 'https://github.com/user2/repo2',
+      owner: { id: '2', login: 'user2', url: 'https://github.com/user2' },
+      stars: 10,
+      createdAt: '2018-06-25T18:13:54Z',
+    },
   ],
   page: 1,
-  total: 20,
+  perPage: 1,
+  total: 2,
   onPageChange: (page: number) => console.log('Change to page', page),
+  onSortChange: (field: SortField, direction: SortDirection) =>
+    console.log(field, 'sort:', direction),
 }
 
 export const EmptyState = Template.bind({})
-EmptyState.args = {}
+EmptyState.args = {
+  onPageChange: (page: number) => console.log('Change to page', page),
+  onSortChange: (field: SortField, direction: SortDirection) =>
+    console.log(field, 'sort:', direction),
+}
 
 export const Loading = Template.bind({})
 Loading.args = {
   loading: true,
+  onPageChange: (page: number) => console.log('Change to page', page),
+  onSortChange: (field: SortField, direction: SortDirection) =>
+    console.log(field, 'sort:', direction),
 }

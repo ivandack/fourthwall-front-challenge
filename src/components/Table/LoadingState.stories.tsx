@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react'
 import LoadingState from './LoadingState'
 
 export default {
-  title: 'Components/RepositoriesTable',
+  title: 'Components/LoadingState',
   component: LoadingState,
 } as Meta
 
