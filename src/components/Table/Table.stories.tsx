@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react'
 import RepositoriesTable, { RepositoriesTableProps } from './'
 
 export default {
-  title: 'Components/RepositoriesTable',
+  title: 'Components/Table',
   component: RepositoriesTable,
 } as Meta
 
@@ -23,10 +23,15 @@ Normal.args = {
       createdAt: '2017-05-15T08:30:00Z',
     },
   ],
-  page: 0,
+  page: 1,
   total: 20,
   onPageChange: (page: number) => console.log('Change to page', page),
 }
 
-export const NoRepos = Template.bind({})
-NoRepos.args = {}
+export const EmptyState = Template.bind({})
+EmptyState.args = {}
+
+export const Loading = Template.bind({})
+Loading.args = {
+  loading: true,
+}
