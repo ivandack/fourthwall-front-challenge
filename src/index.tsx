@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import App from './App'
-import { store } from './app/store'
+import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 

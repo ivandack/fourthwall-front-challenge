@@ -1,6 +1,6 @@
 import { SortDirection } from '@material-ui/core'
 import { Story, Meta } from '@storybook/react'
-import { SortField } from '../../app/repositories/types'
+import { SortField } from '../../types/repositories'
 
 import RepositoriesTable, { RepositoriesTableProps } from './'
 

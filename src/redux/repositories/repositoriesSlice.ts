@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchRepositories } from './repositoriesAPI'
-import { Repository } from './types'
+import { Repository } from '../../types/repositories'
 
 export interface RepositoriesState {
   total: number | null

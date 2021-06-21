@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 
 import SearchInput from './components/SearchInput'
 import Table from './components/Table'
-import { useAppDispatch, useAppSelector } from './app/hooks'
+import { useAppDispatch, useAppSelector } from './redux/hooks'
 import {
   searchRepositories,
   clearRepositories,
-} from './app/repositories/repositoriesSlice'
-import { Repository, SortField } from './app/repositories/types'
+} from './redux/repositories/repositoriesSlice'
+import { Repository, SortField } from './types/repositories'
 
 import './App.css'
 import { SortDirection } from '@material-ui/core'
